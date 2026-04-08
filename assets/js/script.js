@@ -197,7 +197,7 @@ projectViewBtns.forEach((btn) => {
       }
       
       if (projectModalDescription) {
-        projectModalDescription.textContent = projectItem.dataset.projectDescription || "";
+        projectModalDescription.innerHTML = projectItem.dataset.projectDescription || "";
       }
       
       if (projectModalTech) {
