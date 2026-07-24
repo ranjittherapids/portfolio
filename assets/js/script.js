@@ -54,18 +54,19 @@ const filterBtns = document.querySelectorAll("[data-filter-btn]");
 const filterItems = document.querySelectorAll("[data-filter-item]");
 
 const applyFilter = (value) => {
-  // Normalize the filter value (lowercase, trim spaces)
-  const normalizedValue = value.toLowerCase().trim();
+  // Normalize the filter value (lowercase, trim spaces, replace spaces with hyphens)
+  const normalizedValue = value.toLowerCase().trim().replace(/\s+/g, "-");
   
   filterItems.forEach((item) => {
     // Always remove active class first
     item.classList.remove("active");
     
-    // Get the category and normalize it
+    // Get the category list and normalize it
     const itemCategory = (item.dataset.category || "").toLowerCase().trim();
+    const categories = itemCategory.split(",").map(s => s.trim().replace(/\s+/g, "-"));
     
     // Check if this item matches the filter
-    const match = normalizedValue === "all" || normalizedValue === itemCategory;
+    const match = normalizedValue === "all" || categories.includes(normalizedValue);
     
     // Only add active class if it matches
     if (match) {
