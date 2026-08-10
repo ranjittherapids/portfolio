@@ -14,12 +14,14 @@ const sidebar = document.querySelector("[data-sidebar]");
 const sidebarBtn = document.querySelector("[data-sidebar-btn]");
 sidebarBtn?.addEventListener("click", () => toggleClass(sidebar));
 
-// Modal handling
+// Testimonials modal handling
 const modalContainer = document.querySelector("[data-modal-container]");
 const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
 const overlay = document.querySelector("[data-overlay]");
-const modalImg = document.querySelector("[data-modal-img]");
+const modalAvatar = document.querySelector("[data-modal-avatar]");
 const modalTitle = document.querySelector("[data-modal-title]");
+const modalRole = document.querySelector("[data-modal-role]");
+const modalDate = document.querySelector("[data-modal-date]");
 const modalText = document.querySelector("[data-modal-text]");
 
 const toggleModal = () => {
@@ -27,16 +29,23 @@ const toggleModal = () => {
   toggleClass(overlay);
 };
 
-// Testimonials modal setup
 document.querySelectorAll("[data-testimonials-item]").forEach((item) => {
   item.addEventListener("click", () => {
     const avatar = item.querySelector("[data-testimonials-avatar]");
     const title = item.querySelector("[data-testimonials-title]");
+    const role = item.querySelector("[data-testimonials-role]");
     const text = item.querySelector("[data-testimonials-text]");
 
-    if (modalImg && avatar) modalImg.src = avatar.src;
-    if (modalImg && avatar) modalImg.alt = avatar.alt;
-    if (modalTitle && title) modalTitle.innerHTML = title.innerHTML;
+    if (modalAvatar && avatar) modalAvatar.textContent = avatar.textContent;
+    if (modalTitle && title) modalTitle.textContent = title.textContent;
+    if (modalRole) {
+      modalRole.textContent = role ? role.textContent : "";
+      modalRole.style.display = role ? "" : "none";
+    }
+    if (modalDate) {
+      modalDate.dateTime = item.dataset.testimonialsDate || "";
+      modalDate.textContent = item.dataset.testimonialsDateLabel || "";
+    }
     if (modalText && text) modalText.innerHTML = text.innerHTML;
 
     toggleModal();
